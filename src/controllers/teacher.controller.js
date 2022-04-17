@@ -26,7 +26,7 @@ router.get("", async (req, res) => {
         const match = {}
 
         if (req.query.gender) {
-            match.published = req.query.gender === 'female' ?  "female" : "male"
+            match.published = req.query.gender === 'Female' ?  "Female" : "Male"
         }
 
         const sort = {}
