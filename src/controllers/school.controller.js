@@ -22,7 +22,7 @@ router.post("", async (req, res) => {
 router.get("", async (req, res) => {
     try {
         
-        const school = await School.find().limit(size).lean().exec();
+        const school = await School.find().lean().exec();
         return res.send(school);
         // res.send(school);
     } catch (err) {
