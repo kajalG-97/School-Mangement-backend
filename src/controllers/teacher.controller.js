@@ -36,9 +36,11 @@ router.get("", async (req, res) => {
         }
 
         const count = req.query.count;
+
+        
         // console.log('count', count);
-        const size = count * 4;
-        const teacher = await Teacher.find({match,sort}).populate({path:"classes_ids"}).limit(size).lean().exec();
+        const size = (count - 1) * 4;
+        const teacher = await Teacher.find({match,sort}).populate({path:"classes_ids"}).limit(4).skip(size).lean().exec();
         return res.send(teacher);
         // res.send(teacher);
     } catch (err) {
