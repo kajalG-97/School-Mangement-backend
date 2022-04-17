@@ -26,13 +26,13 @@ router.get("", async (req, res) => {
         const match = {}
 
         if (req.query.gender) {
-            match.published = req.query.gender === 'Female' ?  "Female" : "Male"
+            match.gender = req.query.gender === 'Female' ?  "Female" : "Male"
         }
 
         const sort = {}
 
-        if (req.query.sortBy && req.query.OrderBy) {
-            sort[req.query.sortBy] = req.query.OrderBy === 'desc' ? -1 : 1
+        if ( req.query.OrderBy) {
+            sort["age"] = req.query.OrderBy === 'desc' ? -1 : 1
         }
 
         const count = req.query.count;
