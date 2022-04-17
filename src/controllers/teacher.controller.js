@@ -20,11 +20,25 @@ router.post("", async (req, res) => {
 
 // getting teacher
 router.get("", async (req, res) => {
+
     try {
+
+        const match = {}
+
+        if (req.query.gender) {
+            match.published = req.query.gender === 'female' ?  "female" : "male"
+        }
+
+        const sort = {}
+
+        if (req.query.sortBy && req.query.OrderBy) {
+            sort[req.query.sortBy] = req.query.OrderBy === 'desc' ? -1 : 1
+        }
+
         const count = req.query.count;
         // console.log('count', count);
-        const size = count * 9;
-        const teacher = await Teacher.find().populate({path:"classes_ids"}).limit(size).lean().exec();
+        const size = count * 4;
+        const teacher = await Teacher.find({match,sort}).populate({path:"classes_ids"}).limit(size).lean().exec();
         return res.send(teacher);
         // res.send(teacher);
     } catch (err) {
