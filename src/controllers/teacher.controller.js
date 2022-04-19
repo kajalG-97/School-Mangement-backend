@@ -55,7 +55,7 @@ router.get("", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
     try {
-        const teacher = await Teacher.findByIdAndUpdate(req.params.id, req.body)
+        const teacher = await Teacher.findByIdAndUpdate(req.params.id, req.body,{new:true})
         res.send(teacher);
     } catch (err) {
         console.log('err', err);
