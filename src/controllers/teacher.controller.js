@@ -26,27 +26,32 @@ router.get("", async (req, res) => {
         const match = {}
 
         if (req.query.gender) {
-            match.gender = req.query.gender === 'Female' ?  "Female" : "Male"
+            match.gender = req.query.gender === 'Female' ? "Female" : "Male"
         }
 
         const sort = {}
 
-        if ( req.query.OrderBy) {
+        if (req.query.OrderBy) {
             sort["age"] = req.query.OrderBy === 'desc' ? -1 : 1
         }
 
         const count = req.query.count;
 
-        
+
         // console.log('count', count);
         const size = (count - 1) * 4;
-        const teacher = await Teacher.find({match,sort}).populate({path:"classes_ids"}).limit(4).skip(size).lean().exec();
+        const teacher = await Teacher.find(match).populate({ path: "classes_ids" }).limit(4).skip(size).lean().exec();
         return res.send(teacher);
+
+
         // res.send(teacher);
     } catch (err) {
         res.status(520).send(err.message);
     }
 });
+
+
+
 
 router.patch("/:id", async (req, res) => {
     try {
