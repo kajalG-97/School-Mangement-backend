@@ -31,8 +31,8 @@ router.get("", async (req, res) => {
 
         const sort = {}
 
-        if (req.query.OrderBy) {
-            sort["age"] = req.query.OrderBy === 'desc' ? -1 : 1
+        if (req.query.sortBy && req.query.OrderBy) {
+            sort[req.query.sortBy] = req.query.OrderBy === 'desc' ? -1 : 1
         }
 
         const count = req.query.count;
@@ -40,7 +40,7 @@ router.get("", async (req, res) => {
 
         // console.log('count', count);
         const size = (count - 1) * 4;
-        const teacher = await Teacher.find(match).populate({ path: "classes_ids" }).limit(4).skip(size).lean().exec();
+        const teacher = await Teacher.find(match).populate({ path: "classes_ids" }).sort(sort).limit(4).skip(size).lean().exec();
         return res.send(teacher);
 
 
